@@ -16,6 +16,15 @@
         tools:context=".MainActivity">
 
 
+        <TextView
+            android:id="@+id/limparFavoritos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Limpar favoritos"
+            android:textColor="#E10101"
+            android:textSize="20sp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/carrosRecycler"
             android:layout_width="match_parent"

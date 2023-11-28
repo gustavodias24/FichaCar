@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -20,6 +21,8 @@ public class FavoritosActivity extends AppCompatActivity {
     ActivityFavoritosBinding mainBinding;
     RecyclerView r;
     AdapterCarro adapterCarro;
+    List<CarroModel> carros;
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +35,17 @@ public class FavoritosActivity extends AppCompatActivity {
         r.setLayoutManager(new LinearLayoutManager(this));
         r.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         r.setHasFixedSize(true);
-        List<CarroModel> carros = CarroUtils.returnFav(this);
+        carros = CarroUtils.returnFav(this);
         if ( carros == null){ carros = new ArrayList<>();}
         adapterCarro = new AdapterCarro(carros, this);
         r.setAdapter(adapterCarro);
+
+
+        mainBinding.limparFavoritos.setOnClickListener( view -> {
+            carros.clear();
+            CarroUtils.atualizarFav(carros, this);
+            adapterCarro.notifyDataSetChanged();
+        });
 
     }
 }
